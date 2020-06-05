@@ -1,0 +1,78 @@
+doctype html
+html
+    head
+        title CRUD
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css", integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk", crossorigin="anonymous")
+    body
+        div(class="container mt-5")
+            div(class="card")
+                h5(class="card-header") Crear Usuario
+                div(class="card-body col-md-12")
+                    form(class="row", action="app/saveUser.php", method="POST")
+                        div(class="col-md-4")
+                            div(class="input-group mb-3")
+                                div(class="input-group-prepend")
+                                    span(class="input-group-text" id="basic-addon1") @
+                                input( name ="nick",type="text" class="form-control" placeholder="NickName" aria-label="NickName" aria-describedby="basic-addon1" pattern="[A-Za-z\_]" required)
+                        div(class="col-md-4")
+                            div(class="input-group mb-3")
+                                div(class="input-group-prepend")
+                                    span(class="input-group-text" id="basic-addon1") Nombre
+                                input( name ="nombre",type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="basic-addon1" required)
+                        div(class="col-md-4")
+                            div(class="input-group mb-3")
+                                div(class="input-group-prepend")
+                                    span(class="input-group-text" id="basic-addon1") Apellidos
+                                input( name ="apellidos",type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos" aria-describedby="basic-addon1" required)
+                        div(class="col-md-4")
+                            div(class="input-group mb-3")
+                                div(class="input-group-prepend")
+                                    span(class="input-group-text" id="basic-addon1") Contraseña
+                                input( name ="password",type="poasssword" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required)
+                        div(class="col-md-4")
+                            div(class="input-group mb-3")
+                                div(class="input-group-prepend")
+                                    span(class="input-group-text" id="basic-addon1") Rol
+                                select( name="rol",type="text" class="form-control" placeholder="Rol" aria-label="Rol" aria-describedby="basic-addon1" required)
+                                    option(value="0") Selecciones un Rol
+                                    option(value="1") Admin
+                                    option(value="2") Operador
+                                    option(value="3") Administrativo
+                        div(class="col-md-4")
+                            div(class="input-group mb-3")
+                                div(class="input-group-prepend")
+                                    span(class="input-group-text" id="basic-addon1") Mail
+                                input( name="email",type="email" class="form-control" placeholder="Correo" aria-label="Correo" aria-describedby="basic-addon1" required)              
+                        button(type="submit" class="btn btn-success") Guardar
+                if $status == "success"
+                    div(class="alert alert-success col-md-6" role="alert") #{mensaje}
+                else if $status =="error"
+                    div(class="alert alert-danger col-md-6" role="alert") #{mensaje}
+            div(class="card mt-5")
+                table(class="table")
+                    thead
+                        tr
+                            td(scope="col") id
+                            td(scope="col") Nick
+                            td(scope="col") Nombre
+                            td(scope="col") Apellidos
+                            td(scope="col") Correos
+                            td(scope="col") Modficar
+                            td(scope="col") Eliminar
+                            
+                    tbody
+                        each $user in $users
+                            tr
+                                td=$user['id']
+                                td=$user['nick']
+                                td=$user['Nombre']
+                                td=$user['Apellidos']
+                                td=$user['correo']
+                                td
+                                    a(class="btn btn-success", hrer="/modificar?id=#{$user['id']}") Modoficar
+                                td
+                                    a(class="btn btn-danger",hfer="") Eliminar
+
+
+
+include script.pug
